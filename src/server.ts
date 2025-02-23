@@ -95,6 +95,8 @@ import config from "./app/config";
 import { io, server } from "./app";
 import { TaskModel } from "./app/Modules/Task/Task.model";
 
+
+const PORT = process.env.PORT || 3000;
 async function main() {
   try {
     // mongoose.set("debug", true);
@@ -114,7 +116,7 @@ async function main() {
     });
 
     // Start the server
-    server.listen(config.port, () => {
+    server.listen(PORT, () => {
       console.log(`🚀 Server running on port ${config.port}`);
     });
 
