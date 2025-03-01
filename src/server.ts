@@ -94,6 +94,7 @@ import mongoose from "mongoose";
 import config from "./app/config";
 import { io, server } from "./app";
 import { TaskModel } from "./app/Modules/Task/Task.model";
+import { AuthModel } from "./app/Modules/Auth/Auth.model";
 
 
 const PORT = process.env.PORT || 3000;
@@ -108,6 +109,11 @@ async function main() {
     taskStream.on("change", (change) => {
       console.log("🟢 MongoDB Change Event:", change);
       io.emit("taskUpdated", change);
+    });
+    const authStream = AuthModel.watch();
+    authStream.on("change", (change) => {
+      console.log("🟢 MongoDB Change Event:", change);
+      io.emit("authUpdated", change);
     });
 
     io.on("connection", (socket) => {
